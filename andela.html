@@ -1,0 +1,121 @@
+<style>
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.container input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 20px 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.container button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin: 20px 0 0;
+  opacity: 0.5
+}
+.container button:hover,.container button:active,.container button:focus {
+  background: #43A047;
+}
+.container .message {
+  margin: 50px 0 0;
+  color: #000000;
+  font-size: 16px;
+}
+body {
+  background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+  background: -moz-linear-gradient(right, #76b852, #8DC26F);
+  background: -o-linear-gradient(right, #76b852, #8DC26F);
+  background: linear-gradient(to left, #76b852, #8DC26F);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      
+}
+</style>
+<div class="page">
+  <div class="container">
+    <h4>Enter a 3 digit number below to check if it is an "armstrong" number or not</h4>
+      <input type="text" id="numInput" placeholder="Enter Number"/>
+      <button id="checkBtn">Check</button>
+      <div class="message" id="msg"> </div>
+  </div>
+</div>
+<script>
+
+document.getElementById("numInput").addEventListener("input", onInput);
+document.getElementById("checkBtn").addEventListener("click", check);
+
+
+let msg = document.getElementById("msg");
+let number;
+function check() {
+	number = document.getElementById("numInput").value;
+    if (number.length !== 3) {
+        msg.innerHTML = "Number <strong>must</strong> be a 3 digit integer.";
+    } else {
+        if (isNaN(number)) {
+            msg.innerHTML = "Please enter a number.";
+        } else if (number.indexOf(" ") >= 0) {
+            msg.innerHTML = "Please enter a VALID number.";
+        } else {
+            msg.innerHTML = isArmstrong(number)
+        }
+    }
+
+}
+
+function isArmstrong(number) {
+    let strNum = number;
+    let total = (Number(strNum[0])**3) + (Number(strNum[1])**3) + (Number(strNum[2])**3);
+    if (total === Number(number)) {
+        return number + " <strong>is</strong> an Armstrong number.";
+    }
+    else {
+        return number + " is <strong>NOT</strong> an Armstrong number.";
+    }
+
+}
+
+function onInput() {
+	let button = document.getElementById("checkBtn");
+	number = document.getElementById("numInput").value;
+    if(number.length !== 3){
+		msg.innerHTML = "";
+        button.style.opacity = "0.5";
+    } else {
+		msg.innerHTML = "";
+        button.style.opacity = "1";
+    }
+
+}
+</script>

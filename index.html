@@ -1,0 +1,110 @@
+<style>
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.container input {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  margin: 20px 0 0;
+}
+.container button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin: 20px 0 0;
+}
+.container button:hover,.container button:active,.container button:focus {
+  background: #43A047;
+}
+.container .message {
+  margin: 50px 0 0;
+  color: #000000;
+  font-size: 16px;
+}
+body {
+  background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+  background: -moz-linear-gradient(right, #76b852, #8DC26F);
+  background: -o-linear-gradient(right, #76b852, #8DC26F);
+  background: linear-gradient(to left, #76b852, #8DC26F);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      
+}
+</style>
+<div class="page">
+  <div class="container">
+    <h2>Day of the year</h2>
+	<p id="today"></p>
+      <input type="text" id="numInput" placeholder="Enter Number" readonly/>
+	  <input type="text" id="numInput2" placeholder="Enter Number" readonly/>
+	  <input type="text" id="numInput3" placeholder="Enter Number" readonly/>
+  </div>
+</div>
+
+<script>
+Date.prototype.getDOY = function() {
+  var onejan = new Date(this.getFullYear(),0,1);
+  return Math.ceil((this - onejan) / 86400000);
+}
+var today = new Date();
+var daynum = today.getDOY();
+
+function ordinal(num)
+  {
+	var num = num ;
+	var last, ext;
+	
+	num = num.toString();
+	last = num.substr(num.length-1);
+	
+    if( last>3  ||
+	last==0 ||
+	( num >= 11 && num <= 19 ) ) {
+      ext='th';
+    } else if( last==3 )  {
+      ext='rd';
+    } else if( last==2 )  {
+      ext='nd';
+    } else {
+      ext='st';
+    }
+    return num+ext;
+  }
+document.getElementById("today").innerHTML = Date("Y");
+document.getElementById("numInput").value = "Today is the " + ordinal(daynum) + " DAY of 2018";
+document.getElementById("numInput2").value = 365-daynum + " days left of 2018";
+document.getElementById("numInput3").value = "R1/Day" + (daynum-225) + " #100DaysOfCode";
+</script>

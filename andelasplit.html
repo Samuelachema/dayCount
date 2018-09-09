@@ -1,0 +1,122 @@
+<style>
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.page {
+  width: 560px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 560px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.container input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 20px 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.container button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin: 20px 0 0;
+}
+.container button:hover,.container button:active,.container button:focus {
+  background: #43A047;
+}
+.container .message {
+  margin: 50px 0 0;
+  color: #000000;
+  font-size: 16px;
+}
+body {
+  background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+  background: -moz-linear-gradient(right, #76b852, #8DC26F);
+  background: -o-linear-gradient(right, #76b852, #8DC26F);
+  background: linear-gradient(to left, #76b852, #8DC26F);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      
+}
+</style>
+<div class="page">
+  <div class="container">
+    <h4>Different Words, Same Letter</h4>
+      <input type="text" id="txtInput" placeholder="Enter sentence to check if it contains different word of same letter"/>
+      <button id="checkBtn" >Check</button>
+      <div class="message" id="msg"> </div>
+  </div>
+</div>
+
+<script>
+
+
+document.getElementById("checkBtn").addEventListener("click", check);
+
+let msg = document.getElementById("msg");
+function check() {
+	let sentence = document.getElementById("txtInput").value;
+	sentence = sentence.replace(/[^\w\s]/gi, ''); //remove punctuation marks(., ?,...)
+	senArray = sentence.split(" ");
+	let result = "";
+	let i, j ;
+   for (i = 0; i < senArray.length; i++){
+		for (j = senArray.length-1; j > i; j--){
+			if (senArray[i].length === senArray[j].length && senArray[i].toLowerCase() !== senArray[j].toLowerCase() && senArray[i].length !== 1){
+				
+				//convert the words to lowercase
+				let x = senArray[i].toLowerCase();
+				let y = senArray[j].toLowerCase();
+				
+				//split the words into arrays
+				x = x.split("");
+				y = y.split("");
+				
+				//sort the array alphabetically
+				x = x.sort();
+				y = y.sort();
+				
+				//convert the arrays back to a comma separated strings
+				x = x.join("");
+				y = y.join("");
+				if (x === y){
+					result += "<strong>" + senArray[i]+"</strong> and <strong>"+senArray[j] + "</strong> contain the same letters. <br>";
+				} else {
+					//do nothing
+				} 				
+			}
+		}
+   }
+   
+   if (result === ""){
+		msg.innerHTML = "None of the words in the sentence contain the same letters";
+   } else {
+		
+		msg.innerHTML = result;
+   }
+	
+}
+
+</script>
